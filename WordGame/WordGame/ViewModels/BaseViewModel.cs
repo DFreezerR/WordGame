@@ -13,6 +13,7 @@ namespace WordGame.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IDataStore<Player> PlayerStore => DependencyService.Get<IDataStore<Player>>();
 
         bool isBusy = false;
         public bool IsBusy
