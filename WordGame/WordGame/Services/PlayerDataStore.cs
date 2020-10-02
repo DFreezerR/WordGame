@@ -14,8 +14,8 @@ namespace WordGame.Services
             players = new List<Player>()
             {
                 new Player { Id = Guid.NewGuid().ToString(), Name = "Anton", Wins = 0, Loses = 0, LastWord = ""},
-                new Player { Id = Guid.NewGuid().ToString(), Name = "Misha", Wins = 0, Loses = 0, LastWord = ""},
-                new Player { Id = Guid.NewGuid().ToString(), Name = "Ilya", Wins = 0, Loses = 0, LastWord = ""}
+                //new Player { Id = Guid.NewGuid().ToString(), Name = "Misha", Wins = 0, Loses = 0, LastWord = ""},
+                //new Player { Id = Guid.NewGuid().ToString(), Name = "Ilya", Wins = 0, Loses = 0, LastWord = ""}
             };
         }
 

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "517264645354",
+    "firebase_url": "https://wordgame-bf41c.firebaseio.com",
+    "project_id": "wordgame-bf41c",
+    "storage_bucket": "wordgame-bf41c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517264645354:android:a66728239cefdd99bb0b93",
+        "android_client_info": {
+          "package_name": "com.happydrwn.wordgame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "517264645354-2at1vskgbm43mcg6536l1avurtqakcn0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyWldfHWzdyImbZlksafpJ7M2gCDisso8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "517264645354-2at1vskgbm43mcg6536l1avurtqakcn0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

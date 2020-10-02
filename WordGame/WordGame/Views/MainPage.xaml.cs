@@ -14,9 +14,19 @@ namespace WordGame.Views
 
         private void ChoosenWord_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!SaveBtn.IsEnabled)
+            if (String.IsNullOrEmpty(((Entry)sender).Text))
             {
-                SaveBtn.IsEnabled = true;
+                if (SaveBtn.IsEnabled)
+                {
+                    SaveBtn.IsEnabled = false;
+                }
+            }
+            else
+            {
+                if (!SaveBtn.IsEnabled)
+                {
+                    SaveBtn.IsEnabled = true;
+                }
             }
         }
 

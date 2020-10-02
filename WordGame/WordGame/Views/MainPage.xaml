@@ -40,13 +40,10 @@
                         <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
                             <Label HorizontalOptions="CenterAndExpand" FontSize="Title" Text="Enter your word"/>
                             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                                <Entry TextChanged="ChoosenWord_TextChanged" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7}" Placeholder="Enter your word" x:Name="ChoosenWord">
+                                <Entry  Text="{Binding ChoosenWord, Mode=TwoWay}" TextChanged="ChoosenWord_TextChanged" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7}" Placeholder="Enter your word" x:Name="ChoosenWord">
                                 </Entry>
                                 <Button Clicked="SaveBtn_Clicked" Command="{Binding SaveWord}" CommandParameter="{x:Reference SaveBtn}" IsEnabled="{Binding isReady}" x:Name="SaveBtn" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.2}" Text="Save"></Button>
                             </StackLayout>
-                        </StackLayout>
-                        <StackLayout>
-                            <Picker  ItemsSource="{Binding Players}" ItemDisplayBinding="{Binding Name}" SelectedIndex="0" Title="Player" x:Name="Picker"/>
                         </StackLayout>
                         <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
                             <Label FontSize="Title" Text="Was your word guessed?"/>
