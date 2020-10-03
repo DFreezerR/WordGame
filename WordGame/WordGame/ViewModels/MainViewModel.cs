@@ -32,6 +32,8 @@ namespace WordGame.ViewModels
             wordDiff = 0;
             gameDiff = 0;
             SaveWord = new Command((object sender) => SaveBtnClick(sender));
+            NotGuessedCommand = new Command(NotGuessWord);
+            GuessedCommand = new Command(GuessWord);
             isReady = true;
             isGenerated = true;
             isSaved = false;
@@ -54,6 +56,8 @@ namespace WordGame.ViewModels
         public ICommand Click { get; set; }
         public ICommand EntryChanged { get; set; }
         public ICommand SaveWord { get; set; }
+        public ICommand NotGuessedCommand { get; set; }
+        public ICommand GuessedCommand { get; set; }
         public byte wordDiff { get; set; }
         public byte gameDiff { get; set; }
         public bool isReady { get; set; }
@@ -61,6 +65,34 @@ namespace WordGame.ViewModels
         public bool isGenerated { get; set; }
         public string ChoosenWord { get; set; }
         public Game ActiveGame { get; set; }
+        public async void GuessWord()
+        {
+            try
+            {
+                Game g = JsonConvert.DeserializeObject<Game>((await firebaseClient.GetAsync($"WordList/{currentPLayer.Name}/Active")).Body);
+                await firebaseClient.SetAsync($"WordList/{currentPLayer.Name}/Guessed/{g.Date}", g);
+                await firebaseClient.DeleteAsync($"WordList/{currentPLayer.Name}/Active");
+                LoadNewState(this);
+            }
+            catch (Exception e)
+            {
+                DependencyService.Get<IMessage>().ShortAlert("FireBase connection problem!");
+            }
+        }
+        public async void NotGuessWord()
+        {
+            try
+            {
+                Game g = JsonConvert.DeserializeObject<Game>((await firebaseClient.GetAsync($"WordList/{currentPLayer.Name}/Active")).Body);
+                await firebaseClient.SetAsync($"WordList/{currentPLayer.Name}/NotGuessed/{g.Date}", g);
+                await firebaseClient.DeleteAsync($"WordList/{currentPLayer.Name}/Active");
+                LoadNewState(this);
+            }
+            catch (Exception e)
+            {
+                DependencyService.Get<IMessage>().ShortAlert("FireBase connection problem!");
+            }
+        }
         public void RestoreState(object sender, string saves)
         {
             json = JsonConvert.DeserializeObject<JObject>(saves);
@@ -104,7 +136,7 @@ namespace WordGame.ViewModels
         }
         private async void SaveBtnClick(object sender)
         {
-            ActiveGame = new Game() {GameDiff = gameDiff, Word = ChoosenWord, WordDiff = wordDiff, Date = DateTime.Now};
+            ActiveGame = new Game() {GameDiff = gameDiff, Word = ChoosenWord, WordDiff = wordDiff, Date = DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss")};
             try
             {
                 await firebaseClient.SetAsync($"WordList/{currentPLayer.Name}/Active", ActiveGame);

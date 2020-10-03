@@ -49,12 +49,12 @@
                     <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
                         <Label FontSize="Title" Text="Was your word guessed?"/>
                         <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Padding="20" Spacing="10" >
-                            <Button IsEnabled="{Binding isSaved}">
+                            <Button IsEnabled="{Binding isSaved}" Command="{Binding NotGuessedCommand}">
                                 <Button.Text>
                                     No
                                 </Button.Text>
                             </Button>
-                            <Button IsEnabled="{Binding isSaved}">
+                            <Button IsEnabled="{Binding isSaved}" Command="{Binding GuessedCommand}">
                                 <Button.Text>
                                     Yes
                                 </Button.Text>

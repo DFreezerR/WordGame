@@ -9,6 +9,6 @@ namespace WordGame.Models
         public string Word { get; set; }
         public byte WordDiff { get; set; }
         public byte GameDiff { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
     }
 }
