@@ -4,6 +4,7 @@
              x:Class="WordGame.Views.MainPage"
              xmlns:vm="clr-namespace:WordGame.ViewModels"
              xmlns:model="clr-namespace:WordGame.Models" 
+             xmlns:Services="clr-namespace:WordGame.Services"
              Title="{Binding Title}">
     
     <ContentPage.BindingContext>
@@ -13,56 +14,55 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
+            <Services:Inverter x:Key="converter"></Services:Inverter>
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <RefreshView Command="{Binding LoadPlayersCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" HorizontalOptions="CenterAndExpand">
-        <ScrollView>
-            <RelativeLayout HorizontalOptions="CenterAndExpand">
-                <StackLayout Orientation="Vertical">
-                    <StackLayout Orientation="Vertical" Padding="20" Spacing="10">
-                        <Label HorizontalOptions="CenterAndExpand" Text="Generate New Game" FontSize="Title"/>
-                        <Button x:Name="generateBtn" CommandParameter="{x:Reference generateBtn}" Command="{Binding Click}" FontSize="Title">
-                            <Button.Text>
-                                Generate
-                            </Button.Text>
-                        </Button>
-                    </StackLayout>
-                    <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                        <Label FontSize="Title" Text="Word difficulty:"/>
-                        <Label FontSize="Title" Text="{Binding wordDiff}"/>
-                    </StackLayout>
-                    <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                        <Label FontSize="Title" Text="Game difficulty:"/>
-                        <Label FontSize="Title" Text="{Binding gameDiff}"/>
+    <ScrollView HorizontalOptions="CenterAndExpand">
+        <RelativeLayout HorizontalOptions="CenterAndExpand">
+            <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Vertical" Padding="20" Spacing="10">
+                    <Label HorizontalOptions="CenterAndExpand" Text="Generate New Game" FontSize="Title"/>
+                    <Button IsEnabled="{Binding isGenerated}" x:Name="generateBtn" CommandParameter="{x:Reference generateBtn}" Command="{Binding Click}" FontSize="Title">
+                        <Button.Text>
+                            Generate
+                        </Button.Text>
+                    </Button>
+                </StackLayout>
+                <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                    <Label FontSize="Title" Text="Word difficulty:"/>
+                    <Label FontSize="Title" Text="{Binding wordDiff}"/>
+                </StackLayout>
+                <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                    <Label FontSize="Title" Text="Game difficulty:"/>
+                    <Label FontSize="Title" Text="{Binding gameDiff}"/>
+                </StackLayout>
+                <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
+                    <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
+                        <Label HorizontalOptions="CenterAndExpand" FontSize="Title" Text="Enter your word"/>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                            <Entry IsEnabled="{Binding isSaved, Converter={StaticResource converter}}" Text="{Binding ChoosenWord, Mode=TwoWay}" TextChanged="ChoosenWord_Completed" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7}" Placeholder="Enter your word" x:Name="ChoosenWord">
+                            </Entry>
+                            <Button Command="{Binding SaveWord}" CommandParameter="{x:Reference SaveBtn}" IsEnabled="{Binding isReady, Converter={StaticResource converter}, Mode=TwoWay}" x:Name="SaveBtn" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.2}" Text="Save"></Button>
+                        </StackLayout>
                     </StackLayout>
                     <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
-                        <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
-                            <Label HorizontalOptions="CenterAndExpand" FontSize="Title" Text="Enter your word"/>
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                                <Entry  Text="{Binding ChoosenWord, Mode=TwoWay}" TextChanged="ChoosenWord_TextChanged" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7}" Placeholder="Enter your word" x:Name="ChoosenWord">
-                                </Entry>
-                                <Button Clicked="SaveBtn_Clicked" Command="{Binding SaveWord}" CommandParameter="{x:Reference SaveBtn}" IsEnabled="{Binding isReady}" x:Name="SaveBtn" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.2}" Text="Save"></Button>
-                            </StackLayout>
-                        </StackLayout>
-                        <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
-                            <Label FontSize="Title" Text="Was your word guessed?"/>
-                            <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Padding="20" Spacing="10" >
-                                <Button IsEnabled="{Binding isReady}">
-                                    <Button.Text>
-                                        No
-                                    </Button.Text>
-                                </Button>
-                                <Button IsEnabled="{Binding isReady}">
-                                    <Button.Text>
-                                        Yes
-                                    </Button.Text>
-                                </Button>
-                            </StackLayout>
+                        <Label FontSize="Title" Text="Was your word guessed?"/>
+                        <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Padding="20" Spacing="10" >
+                            <Button IsEnabled="{Binding isSaved}">
+                                <Button.Text>
+                                    No
+                                </Button.Text>
+                            </Button>
+                            <Button IsEnabled="{Binding isSaved}">
+                                <Button.Text>
+                                    Yes
+                                </Button.Text>
+                            </Button>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
-            </RelativeLayout>
-        </ScrollView>
-    </RefreshView>
+            </StackLayout>
+        </RelativeLayout>
+    </ScrollView>
 </ContentPage>

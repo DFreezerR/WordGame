@@ -17,6 +17,7 @@ namespace WordGame
             DependencyService.Register<MockDataStore>();
             DependencyService.Register<PlayerDataStore>();
             MainPage = new AppShell();
+            Shell.Current.GoToAsync($"//{nameof(RegisterPage)}");
         }
 
         protected override void OnStart()

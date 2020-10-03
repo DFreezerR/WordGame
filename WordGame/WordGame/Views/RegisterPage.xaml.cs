@@ -10,29 +10,30 @@ using Xamarin.Forms.Xaml;
 namespace WordGame.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginPage : ContentPage
+    public partial class RegisterPage : ContentPage
     {
-        public LoginPage()
+        public RegisterPage()
         {
             InitializeComponent();
-            this.BindingContext = new LoginViewModel();
-            loginButton.IsEnabled = false;
+            this.BindingContext = new RegisterPageModel();
+            regButton.IsEnabled = false;
         }
 
         private void Entry_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (String.IsNullOrEmpty(((Entry)sender).Text))
             {
-                if (loginButton.IsEnabled)
+                if (regButton.IsEnabled)
                 {
-                    loginButton.IsEnabled = false;
+                    regButton.IsEnabled = false;
+                    
                 }
             }
             else
             {
-                if (!loginButton.IsEnabled)
+                if (!regButton.IsEnabled)
                 {
-                    loginButton.IsEnabled = true;
+                    regButton.IsEnabled = true;
                 }
             }
         }

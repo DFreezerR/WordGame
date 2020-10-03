@@ -4,13 +4,14 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="WordGame.Views.LoginPage"
+             x:Class="WordGame.Views.RegisterPage"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
         <StackLayout Padding="50" VerticalOptions="Center">
             <Entry TextChanged="Entry_TextChanged" Text="{Binding userName, Mode=TwoWay}" Placeholder="Enter your name" PlaceholderColor="Black"></Entry>
-            <Button IsEnabled="False" x:Name="loginButton" VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
-            <Button IsEnabled="True" x:Name="regButton" VerticalOptions="Center" Text="Go to registration page" Command="{Binding RegCommand}"/>
+            <Button IsEnabled="False" x:Name="regButton" VerticalOptions="Center" Text="Register" Command="{Binding RegisterCommand}"/>
+            <Button IsEnabled="True" x:Name="logButton" VerticalOptions="Center" Text="Already have account?" Command="{Binding LoginCommand}"/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -13,7 +13,7 @@ namespace WordGame.Services
         {
             players = new List<Player>()
             {
-                new Player { Id = Guid.NewGuid().ToString(), Name = "Anton", Wins = 0, Loses = 0, LastWord = ""},
+                //new Player { Id = Guid.NewGuid().ToString(), Name = "Anton"}
                 //new Player { Id = Guid.NewGuid().ToString(), Name = "Misha", Wins = 0, Loses = 0, LastWord = ""},
                 //new Player { Id = Guid.NewGuid().ToString(), Name = "Ilya", Wins = 0, Loses = 0, LastWord = ""}
             };
@@ -28,24 +28,24 @@ namespace WordGame.Services
 
         public async Task<bool> UpdateItemAsync(Player p)
         {
-            var oldItem = players.Where((Player arg) => arg.Id == p.Id).FirstOrDefault();
+            var oldItem = players.Where((Player arg) => arg.Name == p.Name).FirstOrDefault();
             players.Remove(oldItem);
             players.Add(p);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteItemAsync(string id)
+        public async Task<bool> DeleteItemAsync(string Name)
         {
-            var oldItem = players.Where((Player arg) => arg.Id == id).FirstOrDefault();
+            var oldItem = players.Where((Player arg) => arg.Name == Name).FirstOrDefault();
             players.Remove(oldItem);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<Player> GetItemAsync(string id)
+        public async Task<Player> GetItemAsync(string Name)
         {
-            return await Task.FromResult(players.FirstOrDefault(s => s.Id == id));
+            return await Task.FromResult(players.FirstOrDefault(s => s.Name == Name));
         }
 
         public async Task<IEnumerable<Player>> GetItemsAsync(bool forceRefresh = false)
