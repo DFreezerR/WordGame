@@ -15,13 +15,13 @@ namespace WordGame.Views
 {
     public partial class ItemsPage : ContentPage
     {
-        ItemsViewModel _viewModel;
+        GamesViewModel _viewModel;
 
         public ItemsPage()
         {
             InitializeComponent();
 
-            BindingContext = _viewModel = new ItemsViewModel();
+            BindingContext = _viewModel = new GamesViewModel();
         }
 
         protected override void OnAppearing()

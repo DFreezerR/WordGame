@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WordGame.Models;
+using Xamarin.Forms;
+using static WordGame.Models.Settings;
 
 namespace WordGame.Services
 {
@@ -48,9 +51,20 @@ namespace WordGame.Services
             return await Task.FromResult(players.FirstOrDefault(s => s.Name == Name));
         }
 
-        public async Task<IEnumerable<Player>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IDictionary<string, Player>> GetItemsAsync(bool forceRefresh = false)
         {
-            return await Task.FromResult(players);
+            IDictionary<string, Player> wl = null;
+            try
+            {
+                var p = await firebaseClient.GetAsync($"Players/");
+                wl = p.ResultAs<IDictionary<string, Player>>();
+
+            }
+            catch (Exception e)
+            {
+                DependencyService.Get<IMessage>().ShortAlert("Cant read storage folder!");
+            }
+            return wl;
         }
     }
 }

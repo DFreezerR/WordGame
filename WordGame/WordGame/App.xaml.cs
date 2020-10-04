@@ -14,7 +14,7 @@ namespace WordGame
         public App()
         {
             InitializeComponent();
-            DependencyService.Register<MockDataStore>();
+            DependencyService.Register<GameDataStore>();
             DependencyService.Register<PlayerDataStore>();
             MainPage = new AppShell();
             Shell.Current.GoToAsync($"//{nameof(RegisterPage)}");
