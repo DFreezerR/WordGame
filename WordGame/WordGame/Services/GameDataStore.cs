@@ -54,14 +54,40 @@ namespace WordGame.Services
             {
                 var pl = await DependencyService.Get<IDataStore<Player>>().GetItemsAsync();
                 var players = (new Dictionary<string, Player>(pl)).Select(e=>e.Value).ToList<Player>();
-                
+                List<Game> pg;
+                List<Game> png;
+                Game pa;
                 for (int i = 0; i < players.Count(); i++)
                 {
-                    var playerwordsG = (await firebaseClient.GetAsync($"WordList/{players[0].Name}/Guessed/")).ResultAs<IDictionary<string,Game>>().Select(e=>e.Value).ToList<Game>();
-                    var playerwordsNG = (await firebaseClient.GetAsync($"WordList/{players[0].Name}/NotGuessed/")).ResultAs<IDictionary<string, Game>>().Select(e => e.Value).ToList<Game>();
-                    var playerwordsA = (await firebaseClient.GetAsync($"WordList/{players[0].Name}/Active/")).ResultAs<Game>();
+                    var playerwordsG = await firebaseClient.GetAsync($"WordList/{players[i].Name}/Guessed/");
+                    if (playerwordsG.Body == "null")
+                    {
+                        pg = new List<Game>();
+                    }
+                    else
+                    { 
+                        pg = playerwordsG.ResultAs<IDictionary<string, Game>>().Select(e => e.Value).ToList<Game>();
+                    }
+                    var playerwordsNG = await firebaseClient.GetAsync($"WordList/{players[i].Name}/NotGuessed/");
+                    if (playerwordsNG.Body == "null")
+                    {
+                        png = new List<Game>();
+                    }
+                    else
+                    {
+                        png = playerwordsNG.ResultAs<IDictionary<string, Game>>().Select(e => e.Value).ToList<Game>();
+                    }
+                    var playerwordsA = await firebaseClient.GetAsync($"WordList/{players[i].Name}/Active/");
+                    if (playerwordsA.Body == "null")
+                    {
+                        pa = new Game();
+                    }
+                    else
+                    {
+                        pa = playerwordsA.ResultAs<Game>();
+                    }
 
-                    pw.Add(i.ToString(), new PlayerWords() { Active = playerwordsA, Guessed = playerwordsG, NotGuessed = playerwordsNG, Player = players[0].Name });
+                    pw.Add(i.ToString(), new PlayerWords() { Active = pa, Guessed = pg, NotGuessed = png, Player = players[i].Name });
                     
                 }
 

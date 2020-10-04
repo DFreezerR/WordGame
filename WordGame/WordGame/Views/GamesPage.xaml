@@ -20,30 +20,38 @@
                 SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:PlayerWords" Orientation="Vertical">
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Guessed.Word}" 
-                            LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
-                        </StackLayout>
+                    <StackLayout Padding="10" x:DataType="model:PlayerWords" Spacing="10" Orientation="Vertical">
                         <StackLayout Orientation="Horizontal">
                             <Label Text="{Binding Player}" 
                             LineBreakMode="NoWrap"
                             Style="{DynamicResource ListItemDetailTextStyle}"
                             FontSize="13" />
-                            <Label Text="{Binding Guessed.Date}" 
-                            LineBreakMode="NoWrap"
-                            Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="13" />
-                            <Label Text="{Binding Guessed.WordDiff}" 
-                            LineBreakMode="NoWrap"
-                            Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="13" />
-                            <Label Text="{Binding Guessed.GameDiff}" 
-                            LineBreakMode="NoWrap"
-                            Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="13" />
+                            <ListView ItemsSource="{Binding Guessed}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <StackLayout x:DataType="model:Game">
+                                                <Label Text="{Binding Word}"></Label>
+                                                <Label Text="{Binding WordDiff}"></Label>
+                                                <Label Text="{Binding GameDiff}"></Label>
+                                            </StackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <ListView ItemsSource="{Binding NotGuessed}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <StackLayout x:DataType="model:Game">
+                                                <Label Text="{Binding Word}"></Label>
+                                                <Label Text="{Binding WordDiff}"></Label>
+                                                <Label Text="{Binding GameDiff}"></Label>
+                                            </StackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </StackLayout>
                     </StackLayout>
                 </DataTemplate>
