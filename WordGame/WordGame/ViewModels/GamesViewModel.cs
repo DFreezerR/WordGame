@@ -36,6 +36,10 @@ namespace WordGame.ViewModels
 
                 foreach (var gs in g)
                 {
+                    if (gs.Guessed.Count() == 0 && gs.NotGuessed.Count() == 0)
+                    {
+                        continue;
+                    }
                     Words.Add(gs);
                 }
             }

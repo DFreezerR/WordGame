@@ -15,45 +15,73 @@
       https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
     -->
     <RefreshView x:DataType="local:GamesViewModel" Command="{Binding LoadWordsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <CollectionView x:Name="ItemsListView"
-                ItemsSource="{Binding Words}"
-                SelectionMode="None">
+        <CollectionView x:Name="ItemsListView" ItemsSource="{Binding Words}" SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:PlayerWords" Spacing="10" Orientation="Vertical">
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Player}" 
-                            LineBreakMode="NoWrap"
-                            Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="13" />
-                            <ListView ItemsSource="{Binding Guessed}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <StackLayout x:DataType="model:Game">
-                                                <Label Text="{Binding Word}"></Label>
-                                                <Label Text="{Binding WordDiff}"></Label>
-                                                <Label Text="{Binding GameDiff}"></Label>
-                                            </StackLayout>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                            <ListView ItemsSource="{Binding NotGuessed}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <StackLayout x:DataType="model:Game">
-                                                <Label Text="{Binding Word}"></Label>
-                                                <Label Text="{Binding WordDiff}"></Label>
-                                                <Label Text="{Binding GameDiff}"></Label>
-                                            </StackLayout>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                    <Grid Padding="10" x:DataType="model:PlayerWords" RowSpacing="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label FontSize="25" HorizontalTextAlignment="Center" Grid.ColumnSpan="4" FontAttributes="Bold" Grid.Row="0" Text="{Binding Player}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" />
+                        <Label FontSize="20" HorizontalTextAlignment="Center" Grid.ColumnSpan="4" FontAttributes="Bold" Grid.Row="1" Text="Guessed" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" />
+                        <Label FontSize="15" HorizontalTextAlignment="Center" FontAttributes="Bold" Grid.Row="2" Grid.Column="0" Text="Word" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" />
+                        <Label FontSize="15" HorizontalTextAlignment="Center" FontAttributes="Bold" Grid.Row="2" Grid.Column="1" Text="WordDiff" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" />
+                        <Label FontSize="15" HorizontalTextAlignment="Center" FontAttributes="Bold" Grid.Row="2" Grid.Column="2" Text="GameDiff" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" />
+                        <Label FontSize="15" HorizontalTextAlignment="Center" FontAttributes="Bold" Grid.Row="2" Grid.Column="3" Text="Date" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" />
+                        <StackLayout Grid.Row="3" Grid.ColumnSpan="4" BindableLayout.ItemsSource="{Binding Guessed}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid x:DataType="model:Game">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" HorizontalTextAlignment="Center" Text="{Binding Word}"></Label>
+                                        <Label Grid.Column="1" HorizontalTextAlignment="Center" Text="{Binding WordDiff}"></Label>
+                                        <Label Grid.Column="2" HorizontalTextAlignment="Center" Text="{Binding GameDiff}"></Label>
+                                        <Label Grid.Column="3" HorizontalTextAlignment="Center" Text="{Binding Date}"></Label>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
                         </StackLayout>
-                    </StackLayout>
+                        <Label FontSize="20" HorizontalTextAlignment="Center" Grid.ColumnSpan="4" FontAttributes="Bold" Grid.Row="4" Text="Not Guessed" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" />
+                        <Label FontSize="15" HorizontalTextAlignment="Center" FontAttributes="Bold" Grid.Row="5" Grid.Column="0" Text="Word" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" />
+                        <Label FontSize="15" HorizontalTextAlignment="Center" FontAttributes="Bold" Grid.Row="5" Grid.Column="1" Text="WordDiff" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" />
+                        <Label FontSize="15" HorizontalTextAlignment="Center" FontAttributes="Bold" Grid.Row="5" Grid.Column="2" Text="GameDiff" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" />
+                        <Label FontSize="15" HorizontalTextAlignment="Center" FontAttributes="Bold" Grid.Row="5" Grid.Column="3" Text="Date" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" />
+
+                        <StackLayout Grid.Row="6" Grid.ColumnSpan="4" BindableLayout.ItemsSource="{Binding NotGuessed}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid x:DataType="model:Game">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" HorizontalTextAlignment="Center" Text="{Binding Word}"></Label>
+                                        <Label Grid.Column="1" HorizontalTextAlignment="Center" Text="{Binding WordDiff}"></Label>
+                                        <Label Grid.Column="2" HorizontalTextAlignment="Center" Text="{Binding GameDiff}"></Label>
+                                        <Label Grid.Column="3" HorizontalTextAlignment="Center" Text="{Binding Date}"></Label>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
